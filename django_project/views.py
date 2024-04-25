@@ -3,11 +3,19 @@ from django.shortcuts import render
 
 def home(request):
   # Using APIs
-  response =  requests.get("https://api.github.com/events")
-  data = response.json()
-  result = data[0]["repo"]
+  api_key = '91ba82a5d5741658679706ec974cadb4'
+  city = 'Nairobi'
 
-  response = requests.get("https://dog.ceo/api/breeds/image/random") 
-  data2 = response.json()
-  result2 = data2["message"] 
-  return render(request, "templates/index.html", {"result": result, "result2": result2})
+  url = f'http://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}'
+  response = requests.get(url)
+  data = response.json()
+
+
+  weather = {
+    'city': city,
+    'temperature': round(data['main']['temp'] - 273.15, 2), # I want the temperature in celsius roundeff of to 2dp
+    'description': data['weather'][0]['description'],
+    'icon': data['weather'][0]['icon']
+  }
+
+  return render(request, 'templates/index.html', {'weather': weather})

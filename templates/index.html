@@ -6,16 +6,24 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" >
-    <link rel="css stylesheet" href="{% static 'styles.css' %}"/>  
-    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}"/>  
+    <title> Weather App</title>
   </head>
   <body>
-    <h1> Hello World. My Name Is Gerald </h1>
-    {{result}}
-    <h1>Random Pet</h1>
-    {{result2}}
-    <img src="{{result2}}" alt="random_petpic">"
-    
+    <div class="container">
+      <h1>Weather App</h1>
+      {% if weather %}
+          <div class="Weather_Info">
+             <h2>{{weather.city}}</h2>
+             <p>{{weather.temperature}} 25&deg;C </p>
+             <p>{{weather.description}}</p>
+             <img src="http://openweathermap.org/img/w/{{ weather.icon }}.png" alt="weather-icon">
+          </div>
+      {% if else %}
+          <p>No Weather Data Available</p>
+      {% end if %}
+
+    </div>
   </body>
 </html>
 
